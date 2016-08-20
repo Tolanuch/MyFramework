@@ -1,12 +1,13 @@
 <?php
+// все зробити через сінглтон
+echo 'This is my FRAMEWOOOORK!';
+echo "<br> фрейм!";
+use App\App;
+require_once  ('../vendor/autoload.php');
 
-echo 'This is my fucking FRAMEWOOOORK!';
-
-define('ROOT',dirname(__FILE__).'/');
-define('IDEAL',dirname(__FILE__).'/ideal/');
-define('APP',dirname(__FILE__).'/application/');
-include IDEAL.'framework.php';
-app::gi()->start();
+$app= App::getInstance();
+$app->run();
+$app->done();
 
 ?>
 
