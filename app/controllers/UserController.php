@@ -1,19 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: anatolii
- * Date: 19.08.16
- * Time: 22:30
- */
 
 namespace App\Controllers;
 
-
+use App\Models\User;
 class UserController extends Controller
 {
-    function actionIndex()
+    function index()
     {
         $model = new User();
-        
+        include_once $_SERVER['DOCUMENT_ROOT'] . 'app/views/user/index.php';
     }
 }

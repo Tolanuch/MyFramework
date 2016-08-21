@@ -2,6 +2,10 @@
 
 namespace App;
 
+/**
+ * Class Singleton is abstract class for App, Controllers and other classes that should exist in only one instance.
+ * @package App
+ */
 abstract class Singleton
 {
     /**
@@ -17,7 +21,7 @@ abstract class Singleton
      */
     public static function getInstance( $className = false )
     {
-        $keyClassName = ( $className === false ) ? get_called_class() : $className;
+        $keyClassName = ( $className == false ) ? get_called_class() : $className;
         if( class_exists( $keyClassName ) )
         {
             if( !isset( self::$instances[ $keyClassName ] ) )
