@@ -1,22 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: anatolii
- * Date: 26.08.16
- * Time: 12:53
- */
 
 namespace Eshopframework;
 
+
+use Eshopframework\DBDriver\EshopDBDriver;
 
 class App
 {
     private static $_instance;
     private $configs = array();
+    private $router;
 
     private function __construct()
     {
         $this->configs = Configurator::getInstance()->getConfig();
+        $this->router=Router::getInstance();
     }
 
     /**
@@ -31,7 +29,7 @@ class App
 
     public function run()
     {
-
+        new EshopDBDriver();
     }
 
     public function done()

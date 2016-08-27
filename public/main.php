@@ -2,6 +2,7 @@
 
 // Create the global constant for th config dir.
 define('CONFIG', $_SERVER['DOCUMENT_ROOT'] . '/../config/');
+define('APP_PATH', $_SERVER['DOCUMENT_ROOT'] . '/../vendor/Tolanuch/Eshopframework/');
 
 echo 'This is my FRAMEWOOOORK!';
 

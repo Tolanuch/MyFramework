@@ -31,7 +31,6 @@ class Configurator
     }
 
     /**Get full configuration
-     *
      * @return array
      */
     public function getConfig()
@@ -40,14 +39,13 @@ class Configurator
     }
 
     /**Get certain value or array of values correspond requested $name
-     *
      * @param String $name of configuration to get
      * @return mixed value or array of configurational values were requested
      * @throws \Exception if there is no configuration which corresponds to $name
      */
-    public function getConfigByName ( $name )
+    public function getConfigByName( $name )
     {
-        if( isset($this->config[$name]) )
+        if( isset( $this->config[$name] ) )
             return $this->config[$name];
         throw new \Exception('No configuration for ' . $name . ' has been set.');
     }
