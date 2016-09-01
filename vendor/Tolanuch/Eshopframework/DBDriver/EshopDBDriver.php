@@ -10,6 +10,5 @@ class EshopDBDriver
     public function __construct()
     {
         $this->dbConnection=DBFactory::getConnection();
-        print_r($this->dbConnection);
     }
 }
