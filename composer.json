@@ -1,0 +1,19 @@
+{
+  "name": "tolanuch/autoload",
+  "description": "Composer test project",
+  "license": "GNU/GPL",
+  "author": [
+    {
+      "name": "tolanuch",
+      "email": "tolanuch@mail.ru"
+    }
+  ],
+  "autoload":
+  {
+    "psr-4":
+    {
+        "App\\": "app",
+        "Eshopframework\\" : "vendor/Tolanuch/Eshopframework"
+    }
+  }
+}

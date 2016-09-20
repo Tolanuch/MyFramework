@@ -1,0 +1,4 @@
+.idea
+.git
+public/error.log
+config/config.php
