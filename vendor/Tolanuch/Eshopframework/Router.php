@@ -9,6 +9,8 @@ class Router
 
     private $routes = array();
 
+    private $currentRoute = array();
+
     private $controller;
 
     private $action;
@@ -20,42 +22,20 @@ class Router
         $this->routes=require(CONFIG . 'routes.php');
         $this->preprocessConfig();
 
-
-        // Current URL.
-        $uri = explode('/', $_SERVER['REQUEST_URI']);
-        $uri = array_filter($uri);
     }
 
     private function preprocessConfig()
     {
-        $newConfig = array();
-        $matches = array();
-
-        foreach($this->routes as $key => $value)
+        foreach($this->routes as $key => $route)
         {
-            if( preg_match_all('/\{([a-z]+[0-9]*?)\}/', $value['pattern'],$matches) )
+            $route['pattern'] = str_replace('/','\/', $route['pattern']);
+            if(isset($route['preg']))
             {
-                for ($i=0; $i<count($matches[0]); $i++)
-                {
-                    $newConfig[$key]['pattern'] = preg_replace('/\{' . $matches[0][$i] . '\}/', '(' . $value['preg'] . '?)', $value['pattern']);
-                    echo '<pre>';
-                    print_r($matches[0][$i]);
-                }
+                $route['pattern'] = preg_replace('/\{id\}/', '('.$route['preg'].'?)', $route['pattern']);
             }
-            else
-            {
-                $newConfig[$key]['pattern'] = $value['pattern'];
-            }
-
-            $newConfig[$key]['method'] = $value['method'];
-            $newConfig[$key]['controller'] = $value['controller'];
-            $newConfig[$key]['action'] = $value['action'];
-            $newConfig[$key]['pattern'] = str_replace('/', '\/', $newConfig[$key]['pattern']);
-            $newConfig[$key]['pattern'] = '/^' .$newConfig[$key]['pattern'] . '$/';
+            $route['pattern'] = '/^'.$route['pattern'].'$/';
+            $this->routes[$key] = $route;
         }
-
-        $this->routes = $newConfig;
-
     }
 
     /**
@@ -70,7 +50,8 @@ class Router
 
     public function getRoute()
     {
-        $currentRoute = array();
+        $currentRoute=array();
+
         foreach( $this->routes as $route )
         {
             $matches = array();
@@ -78,14 +59,25 @@ class Router
             {
                 $currentRoute['controller'] = $route['controller'];
                 $currentRoute['action'] = $route['action'];
-                $currentRoute['parameters'] = array(
-                    'name' => $matches[1]
-                );
+                $currentRoute['method'] = Request::getInstance()->getRequestMethod();
+                $matches = array_slice($matches, 1);
+                foreach ($matches as $key => $value)
+                {
+                    $currentRoute['params'][$key] = $value;
+                }
             }
 
         }
 
         return $currentRoute;
+    }
+
+    /**
+     *
+     */
+    public static function buildRoute($name, $params)
+    {
+        return $route=null;
     }
 
 }

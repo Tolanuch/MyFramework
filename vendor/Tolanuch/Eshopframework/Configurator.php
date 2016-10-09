@@ -1,9 +1,7 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: anatolii
- * Date: 26.08.16
- * Time: 14:22
+ * Class for managing the configurations of the application.
  */
 
 namespace Eshopframework;
@@ -11,7 +9,9 @@ namespace Eshopframework;
 
 class Configurator
 {
+
     private static $_instance;
+
     private $configs = array();
 
     private function __construct()
@@ -40,7 +40,7 @@ class Configurator
 
     /**Get certain value or array of values correspond requested $name
      * @param String $name of configuration to get
-     * @return mixed value or array of configurational values were requested
+     * @return mixed value or array of configuration values were requested
      * @throws \Exception if there is no configuration which corresponds to $name
      */
     public function getConfigByName( $name )

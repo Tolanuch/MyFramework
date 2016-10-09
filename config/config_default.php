@@ -13,6 +13,8 @@ return array(
         'user id' => 'root',
         'password' => '1234',
         'database'=> 'eshop'
-    ]
+    ],
+
+    'view_path' => $_SERVER['DOCUMENT_ROOT'] . '/app/view'
 )
 ?>

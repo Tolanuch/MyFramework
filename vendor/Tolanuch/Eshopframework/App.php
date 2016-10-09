@@ -3,18 +3,25 @@
 namespace Eshopframework;
 
 
-use Eshopframework\DBDriver\EshopDBDriver;
+use Eshopframework\Exception\NotFoundPageException;
+use Eshopframework\Exception\AccessDeniedException;
+use Eshopframework\Response\Response;
 
 class App
 {
+    // The App instance.
     private static $_instance;
+
+    // Application configuration.
     private $configs = array();
-    private $router;
+
+    // Current route variable.
+    private $route;
 
     private function __construct()
     {
         $this->configs = Configurator::getInstance()->getConfig();
-        $this->router=Router::getInstance();
+        $this->route=Router::getInstance()->getRoute();
     }
 
     /**
@@ -27,11 +34,41 @@ class App
         return self::$_instance;
     }
 
+
+    /**
+     * Run the web application.
+     */
     public function run()
     {
-        new EshopDBDriver();
+
+        try {
+            if (!$this->route) {
+                throw new NotFoundPageException('Route');
+            } else {
+                //todo call controller, get response and render
+                $response = call_user_func_array('App\\Controller\\' . $this->route['controller'] . '::' . $this->route['method'], $this->route['params']);
+            }
+
+            if (!$response instanceof Response) {
+                throw new \Exception('Bad response type');
+            }
+            else
+                $response->send();
+
+            $model = new Model();
+            $model->find(1);
+        } catch (NotFoundPageException $e){
+            // @TODO: 404 page
+        } catch (AccessDeniedException $e){
+            // @TODO: 403 page
+        } catch (\Exception $e){
+            // @TODO: 500 page
+        }
     }
 
+    /**
+     * The last steps of the application.
+     */
     public function done()
     {
 
