@@ -80,4 +80,6 @@ class Router
         return $route=null;
     }
 
+    private final function __clone() {}
+
 }

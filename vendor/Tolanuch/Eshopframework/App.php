@@ -73,4 +73,6 @@ class App
     {
 
     }
+
+    private final function __clone() {}
 }

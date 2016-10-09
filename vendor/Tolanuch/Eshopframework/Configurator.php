@@ -60,6 +60,6 @@ class Configurator
         return self::$_instance;
     }
 
-
+    private final function __clone() {}
 
 }

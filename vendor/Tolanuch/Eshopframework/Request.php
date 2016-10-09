@@ -50,5 +50,6 @@ class Request
         return $this->requestMethod;
     }
 
+    private final function __clone() {}
 
 }
